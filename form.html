@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hot Din Din</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css"/>
+</head>
+<body>
+    <div class="jumbotron text-center">
+        <h1 class="display-4"><i class="fas fa-dumpster-fire"></i> HOT DIN DIN RESTUARANT</h1>
+        <hr class="my-4">
+        <p>Make your reservation</p>
+        <a class="btn btn-primary btn-lg" href="./index" role="button"><i class="fas fa-home"></i>Home</a>
+        <a class="btn btn-danger btn-lg" href="./table" role="button"><i class="far fa-credit-card"></i> View Tables</a>
+    </div>
+    <div class="card mx-4">
+        <div class="card-header">
+          Table Reservation
+        </div>
+        <form>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name">
+            </div>
+            <div class="form-group">
+              <label for="phoneNumber">Phone Number</label>
+              <input type="text" class="form-control" id="phoneNumber"  aria-describedby="phoneMessage">
+              <small id="phoneMessage" class="form-text text-muted">Your phone number will be displayed on table page.</small>
+            </div>
+            <div class="form-group">
+                <label for="userEmail">Email</label>
+                <input type="email" class="form-control" id="userEmail"  aria-describedby="emailMessage">
+                <small id="emailMessage" class="form-text text-muted">Your email will be displayed on table page.</small>
+            </div>
+            <div class="form-group">
+              <label for="uniqueID">Unique ID</label>
+              <input type="text" class="form-control" id="uniqueID">
+            </div>
+            <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+          </form>
+      </div>
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+      <script>
+
+      // Syntax for .get with AJAX
+      // $.get(URL,callback);
+      $("#submit").on("submit", function(event){
+        event.preventDefault();
+        
+        let customerObject = {
+          customerName: $('#name').value.trim(),
+          customerEmail: $('#userEmail').value.trim(),
+          customerID: $('#uniqueID').value.trim(),
+          phoneNumber: $('#phoneNumber').value.trim()
+        }
+
+        $.post('/api/tables', customerObject, (data, status) => {
+        if (data) {
+          alert('Yay! You have a table!');
+        } else {
+          alert('Oh no! Our tables are full, but you are chillin on the waitlist.')
+        }
+      })
+      })
+
+
+
+      // Example of post syntax 
+      // $("button").click(function(){
+      //   $.post("demo_test_post.asp",
+      //   {
+      //     name: "Donald Duck",
+      //     city: "Duckburg"
+      //   },
+      //   function(data, status){
+      //     alert("Data: " + data + "\nStatus: " + status);
+      //   });
+      // });
+
+      // Syntax for .post with AJAX
+      // $.post(URL,data,callback);
+
+      </script>
+</body>
+</html>
